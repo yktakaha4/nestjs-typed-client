@@ -5,6 +5,7 @@ import { safeDump } from 'js-yaml';
 import { join } from 'path';
 import { promises as fs } from 'fs';
 import { cwd } from 'process';
+import { port } from '../src/main';
 
 const exportOpenAPIDocument = async () => {
   const app = await NestFactory.create(AppModule);
@@ -13,7 +14,7 @@ const exportOpenAPIDocument = async () => {
     .setTitle('Sample Backend')
     .setDescription('Sample Backend')
     .setVersion(new Date().getTime().toString())
-    .addServer('http://localhost:3000', 'local');
+    .addServer(`http://localhost:${port}`, 'local');
 
   const document = SwaggerModule.createDocument(app, builder.build());
   const yamlDocument = safeDump(document, {
