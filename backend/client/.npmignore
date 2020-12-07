@@ -1,0 +1,7 @@
+**/*.*
+
+!/dist/**/*.*
+!sample-backend.yml
+!package.json
+!package-lock.json
+!README.md

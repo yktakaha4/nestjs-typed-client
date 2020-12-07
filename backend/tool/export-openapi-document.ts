@@ -20,7 +20,7 @@ const exportOpenAPIDocument = async () => {
     skipInvalid: true,
     noRefs: true,
   });
-  const yamlPath = join(cwd(), 'out', 'sample-backend.yml');
+  const yamlPath = join(cwd(), 'client', 'sample-backend.yml');
 
   await fs.writeFile(yamlPath, yamlDocument);
 };

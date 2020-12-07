@@ -1,0 +1,34 @@
+{
+  "name": "@yktakaha4/sample-backend-client",
+  "version": "0.0.0-dev",
+  "description": "Sample Backend Client",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=12.0"
+  },
+  "engineStrict": true,
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "url": "https://github.com/yktakaha4/nestjs-typed-client.git",
+    "directory": "client"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "pregenerate": "rimraf lib/",
+    "generate": "JAVA_OPTS=\"-Dlog.level=warn\" openapi-generator generate -i sample-backend.yml -o lib/ -g typescript-axios --api-package=api --model-package=models --additional-properties=supportsES6=true,withSeparateModelsAndApi=true",
+    "version": "node set-package-version.js",
+    "prepublishOnly": "npm run generate && npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@hutson/npm-deploy-git-tag": "^6.0.0",
+    "@openapitools/openapi-generator-cli": "^1.0.18-3.2.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.2"
+  }
+}
