@@ -1,0 +1,39 @@
+name: Publish client
+
+on:
+  push:
+    tags:
+      - client.*
+
+jobs:
+  publish:
+    name: Publish client
+    runs-on: ubuntu-18.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: https://npm.pkg.github.com/
+          scope: "@yktakaha4"
+
+      - run: npm ci
+        working-directory: ./backend
+
+      - run: npm run openapi:export
+        working-directory: ./backend
+
+      - run: npm ci
+        working-directory: ./backend/client
+
+      - run: npm run version $GH_REF
+        working-directory: ./backend/client
+        env:
+          GH_REF: ${{ github.ref }}
+
+      - run: npm publish
+        working-directory: ./backend/client
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
