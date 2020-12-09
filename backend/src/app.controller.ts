@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
-import { GreetingRequest, GreetingResponse } from './app.dto';
+import { GreetRequest, GreetResponse } from './app.dto';
 import { AppService } from './app.service';
 import { ApiOkResponse, ApiTags, ApiOperation } from '@nestjs/swagger';
 
@@ -14,14 +14,20 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @ApiOkResponse({ type: GreetingResponse })
+  @ApiOkResponse({ type: GreetRequest })
   @ApiOperation({ operationId: 'greet' })
   @Post('greet')
   @HttpCode(200)
-  greet(@Body() request: GreetingRequest): GreetingResponse {
-    const { lastName, firstName } = request;
-    const message = this.appService.getGreetingMessage(lastName, firstName);
+  greet(@Body() request: GreetRequest): GreetResponse {
+    // 入力チェック
+    const errors = this.appService.validateGreetRequest(request);
 
-    return new GreetingResponse(message);
+    let message: string | null = null;
+    if (errors.length === 0) {
+      // エラーなしの場合のみメッセージを取得
+      message = this.appService.getGreetingMessage(request);
+    }
+
+    return new GreetResponse(message, errors);
   }
 }

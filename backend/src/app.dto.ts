@@ -1,6 +1,12 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
+import {
+  GreetErrors,
+  greetErrorSchemaPaths,
+  EmptyNameError,
+  VulgarNameError,
+} from './app.error';
 
-export class GreetingRequest {
+export class GreetRequest {
   @ApiProperty()
   readonly lastName: string;
 
@@ -13,11 +19,19 @@ export class GreetingRequest {
   }
 }
 
-export class GreetingResponse {
-  @ApiProperty()
-  readonly message: string;
+@ApiExtraModels(EmptyNameError, VulgarNameError)
+export class GreetResponse {
+  @ApiProperty({ type: String, nullable: true })
+  readonly message: string | null;
 
-  constructor(message: string) {
+  @ApiProperty({
+    type: 'array',
+    items: { oneOf: greetErrorSchemaPaths },
+  })
+  readonly errors: GreetErrors;
+
+  constructor(message: string | null, errors: GreetErrors) {
     this.message = message;
+    this.errors = errors;
   }
 }
