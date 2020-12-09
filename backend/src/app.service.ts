@@ -43,8 +43,13 @@ export class AppService {
   }
 
   getGreetingMessage(request: GreetRequest): string {
-    const format = (value?: string) => value?.trim().toUpperCase() ?? '';
+    const lastName = `${request.lastName
+      .trim()
+      .slice(0, 1)
+      .toUpperCase()}${request.lastName.trim().slice(1).toLowerCase()}`;
 
-    return `Hello, ${format(request.lastName)} ${format(request.firstName)} !`;
+    const firstName = request.firstName.trim().toUpperCase();
+
+    return `Hello, ${lastName} ${firstName} !`;
   }
 }
