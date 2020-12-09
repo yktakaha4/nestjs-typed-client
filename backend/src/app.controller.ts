@@ -14,7 +14,7 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @ApiOkResponse({ type: GreetRequest })
+  @ApiOkResponse({ type: GreetResponse })
   @ApiOperation({ operationId: 'greet' })
   @Post('greet')
   @HttpCode(200)
