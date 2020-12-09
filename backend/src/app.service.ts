@@ -9,6 +9,6 @@ export class AppService {
   getGreetingMessage(lastName: string, firstName: string): string {
     const format = (value?: string) => value?.trim().toUpperCase() ?? '';
 
-    return `Hello, ${format(lastName)} ${format(firstName)} !`;
+    return `Hello, ${format(firstName)} ${format(lastName)} !`;
   }
 }

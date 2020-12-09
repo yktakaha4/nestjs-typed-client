@@ -35,22 +35,22 @@ function App() {
   } as GreetingRequest);
 
   useEffect(() => {
-    if (greetingRequest.firstName !== '' && greetingRequest.lastName !== '') {
+    if (greetingRequest.firstName.trim() !== '' && greetingRequest.lastName.trim() !== '') {
       api.greet(greetingRequest).then((axiosResponse) => {
         const {message} = axiosResponse.data;
         dispatch({ type: 'UPDATE_MESSAGE', value: message });
       }).catch((error) => {
-        dispatch({ type: 'UPDATE_MESSAGE', value: `エラーが発生しました...(${error})` });
+        dispatch({ type: 'UPDATE_MESSAGE', value: String(error) });
       })
     }
   }, [greetingRequest])
 
   return (
     <div className='App'>
-      <input placeholder='苗字' onChange={(event) => dispatch({type: 'UPDATE_FIRST_NAME', value: event.target.value})} />
-      <input placeholder='名前' onChange={(event) => dispatch({type: 'UPDATE_LAST_NAME', value: event.target.value})} />
-      <button onClick={() => setGreetingRequest({ lastName: state.lastName, firstName: state.firstName })}>挨拶する</button>
-      <div>メッセージ: {state.message}</div>
+      <input placeholder='Last Name' onChange={(event) => dispatch({type: 'UPDATE_FIRST_NAME', value: event.target.value})} />
+      <input placeholder='First Name' onChange={(event) => dispatch({type: 'UPDATE_LAST_NAME', value: event.target.value})} />
+      <button onClick={() => setGreetingRequest({ lastName: state.lastName, firstName: state.firstName })}>Greet</button>
+      <div>Message: {state.message}</div>
     </div>
   );
 }

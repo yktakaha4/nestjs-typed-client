@@ -2123,10 +2123,10 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@yktakaha4/sample-backend-client@0.0.1-client.otameshi.1":
-  version "0.0.1-client.otameshi.1"
-  resolved "https://npm.pkg.github.com/download/@yktakaha4/sample-backend-client/0.0.1-client.otameshi.1/73139b666c4460a1195553296bf14a974e0771d47cd438b91f93da905eac8ba2#1eab91d612cf7a2e7e7c314e6588382b3ee4b9bb"
-  integrity sha512-6xP+0Rpx3A1WW/6kryQEWHUdLsaUMoJtuu9EjAI/q8XmVwVEdDWkAQx3PIWckwnEssW7NQj6Q7AcP64yQY54zA==
+"@yktakaha4/sample-backend-client@0.0.1-client.20201209.2":
+  version "0.0.1-client.20201209.2"
+  resolved "https://npm.pkg.github.com/download/@yktakaha4/sample-backend-client/0.0.1-client.20201209.2/64cfb024f257ac4d9c1238d7ad0e759a2e195390e1d10287436e19c00826bbc0#1e817de9fc6420c6b7814e50a110e81b003c120c"
+  integrity sha512-QusYd0SU9F6KUoEnQ3eajkxBJUFdbw1Or9DRrvqYUeZlJ0Z3/yJyVcODhY5KNQBCq02/oKGalHWSyVP+orzqVA==
 
 abab@^2.0.3:
   version "2.0.5"
