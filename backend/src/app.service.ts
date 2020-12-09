@@ -7,6 +7,9 @@ import {
   GreetParameter,
 } from './app.error';
 
+// 下品な言葉
+const VULGAR_WORDS = ['poop', 'shit'];
+
 @Injectable()
 export class AppService {
   getHello(): string {
@@ -24,7 +27,7 @@ export class AppService {
         errors.push(new EmptyNameError(parameter));
       }
 
-      const vulgarWord = ['poop', 'shit'].find((word) => word === name);
+      const vulgarWord = VULGAR_WORDS.find((word) => word === name);
       if (vulgarWord) {
         // 名前に下品な言葉が含まれる
         errors.push(new VulgarNameError(parameter, vulgarWord));
