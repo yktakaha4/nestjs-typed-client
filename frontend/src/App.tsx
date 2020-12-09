@@ -60,19 +60,17 @@ function App() {
   };
 
   useEffect(() => {
-    if (greetingRequest.firstName.trim() !== '' && greetingRequest.lastName.trim() !== '') {
-      api.greet(greetingRequest).then((axiosResponse) => {
-        dispatchResponse(axiosResponse.data);
-      }).catch((error) => {
-        dispatch({ type: 'UPDATE_MESSAGE', value: String(error) });
-      })
-    }
+    api.greet(greetingRequest).then((axiosResponse) => {
+      dispatchResponse(axiosResponse.data);
+    }).catch((error) => {
+      dispatch({ type: 'UPDATE_MESSAGE', value: String(error) });
+    });
   }, [greetingRequest])
 
   return (
     <div className='App'>
-      <input placeholder='Last Name' onChange={(event) => dispatch({type: 'UPDATE_FIRST_NAME', value: event.target.value})} />
-      <input placeholder='First Name' onChange={(event) => dispatch({type: 'UPDATE_LAST_NAME', value: event.target.value})} />
+      <input placeholder='Last Name' onChange={(event) => dispatch({type: 'UPDATE_LAST_NAME', value: event.target.value})} />
+      <input placeholder='First Name' onChange={(event) => dispatch({type: 'UPDATE_FIRST_NAME', value: event.target.value})} />
       <button onClick={() => setGreetingRequest({ lastName: state.lastName, firstName: state.firstName })}>Greet</button>
       <div>Message: {state.message}</div>
     </div>
