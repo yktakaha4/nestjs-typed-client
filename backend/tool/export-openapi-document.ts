@@ -3,8 +3,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from '../src/app.module';
 import { safeDump } from 'js-yaml';
 import { join } from 'path';
-import { promises as fs } from 'fs';
-import { cwd } from 'process';
+import { writeFileSync } from 'fs';
+import { cwd, exit } from 'process';
 import { port } from '../src/main';
 
 const exportOpenAPIDocument = async () => {
@@ -23,7 +23,9 @@ const exportOpenAPIDocument = async () => {
   });
   const yamlPath = join(cwd(), 'client', 'sample-backend.yml');
 
-  await fs.writeFile(yamlPath, yamlDocument);
+  writeFileSync(yamlPath, yamlDocument);
 };
 
-exportOpenAPIDocument().catch(console.error);
+exportOpenAPIDocument()
+  .then(() => exit(0))
+  .catch(console.error);

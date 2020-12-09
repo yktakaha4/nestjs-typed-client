@@ -9,7 +9,7 @@ jobs:
   publish:
     name: Publish client
     runs-on: ubuntu-18.04
-    timeout-minutes: 10
+    timeout-minutes: 3
     steps:
       - uses: actions/checkout@v2
 
