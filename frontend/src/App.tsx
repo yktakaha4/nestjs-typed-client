@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import './App.css';
-import { AppApi, GreetingRequest } from '@yktakaha4/sample-backend-client'
+import { AppApi, EmptyNameErrorParameterEnum, EmptyNameErrorTypeEnum, GreetRequest, GreetResponse, VulgarNameErrorParameterEnum, VulgarNameErrorTypeEnum } from '@yktakaha4/sample-backend-client'
 interface AppState {
   lastName: string
   firstName: string
@@ -32,13 +32,37 @@ function App() {
   const [greetingRequest, setGreetingRequest] = useState({
     lastName: '',
     firstName: ''
-  } as GreetingRequest);
+  } as GreetRequest);
+
+  const dispatchResponse = (response: GreetResponse) => {
+    if (response.message) {
+      dispatch({ type: 'UPDATE_MESSAGE', value: response.message });
+    } else {
+      const messages: Array<string> = [];
+      for (const error of response.errors) {
+        if (error.type === EmptyNameErrorTypeEnum.EmptyNameError) {
+          if (error.parameter === EmptyNameErrorParameterEnum.LastName) {
+            messages.push('・名前は空にできません');
+          } else if (error.parameter === EmptyNameErrorParameterEnum.FirstName) {
+            messages.push('・苗字は空にできません');
+          }
+        } else if (error.type === VulgarNameErrorTypeEnum.VulgarNameError) {
+          if (error.parameter === VulgarNameErrorParameterEnum.LastName) {
+            messages.push(`・名前に ${error.vulgarWord} は設定できません`);
+          } else if (error.parameter === VulgarNameErrorParameterEnum.FirstName) {
+            messages.push(`・苗字に ${error.vulgarWord} は設定できません`);
+          }
+        }
+      }
+
+      dispatch({ type: 'UPDATE_MESSAGE', value: messages.join('') });
+    }
+  };
 
   useEffect(() => {
     if (greetingRequest.firstName.trim() !== '' && greetingRequest.lastName.trim() !== '') {
       api.greet(greetingRequest).then((axiosResponse) => {
-        const {message} = axiosResponse.data;
-        dispatch({ type: 'UPDATE_MESSAGE', value: message });
+        dispatchResponse(axiosResponse.data);
       }).catch((error) => {
         dispatch({ type: 'UPDATE_MESSAGE', value: String(error) });
       })
