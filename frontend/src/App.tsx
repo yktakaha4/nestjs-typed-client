@@ -35,7 +35,7 @@ function App() {
   } as GreetingRequest);
 
   useEffect(() => {
-    if (`${greetingRequest.lastName}${greetingRequest.firstName}` !== '') {
+    if (greetingRequest.firstName !== '' && greetingRequest.lastName !== '') {
       api.greet(greetingRequest).then((axiosResponse) => {
         const {message} = axiosResponse.data;
         dispatch({ type: 'UPDATE_MESSAGE', value: message });
