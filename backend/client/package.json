@@ -26,7 +26,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@hutson/npm-deploy-git-tag": "^6.0.0",
     "@openapitools/openapi-generator-cli": "^1.0.18-3.2.0",
     "rimraf": "^3.0.2",
     "typescript": "^4.1.2"
